@@ -14,5 +14,14 @@ function mostrarResultado(nombre, puedeAcceder){
     }
 }
 
+function ejecutarOperacion(callback){
+    callback(); 
+}
+function saludar() {
+    console.log("Hola")
+}
+
+ejecutarOperacion(saludar)
+
 procesarUsuario("Carlos", 15, mostrarResultado );
 procesarUsuario("Ana", 22, mostrarResultado );
