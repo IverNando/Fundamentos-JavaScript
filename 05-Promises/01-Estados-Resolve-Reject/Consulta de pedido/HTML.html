@@ -1,0 +1,19 @@
+<main class="panel">
+  <h1>Consulta de pedido</h1>
+
+  <form id="formulario">
+    <label for="usuario-id">ID del usuario</label>
+    <input id="usuario-id" type="number" min="1" value="7">
+    <button id="buscar" type="submit">Buscar</button>
+  </form>
+
+  <p id="estado" aria-live="polite">Introduce un ID para empezar.</p>
+
+  <section id="tarjeta" class="tarjeta" hidden >
+    <h2 id="nombre"></h2>
+    <p>Pedido: <span id="titulo"></span></p>
+    <p>Producto: <span id="producto"></span></p>
+    <p>Precio: <span id="precio"></span></p>
+    <script src="consultas.js"></script>
+  </section>
+</main>
