@@ -11,34 +11,45 @@ async function obtenerUsuario(id){
     
     const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
     if (!response.ok) {
-        throw new Error (`HTTP ${response.status}`)
+        const error = new Error (`HTTP ${response.status}: ${response.statusText}`);
+        error.status = response.status;
+        throw error;
+         
     }
     const usuario = await response.json()
     return usuario
 } 
 
 
-form.addEventListener(`submit`, (event)=>{
+form.addEventListener(`submit`, async (event)=>{
 event.preventDefault()
 const id = input.value
 boton.disabled = true
 tarjeta.hidden = true
 estado.textContent = "Cargado..."
-setTimeout (async ()=>{
     try {
         const usuario = await obtenerUsuario(id)
         h2.textContent = usuario.name
         correo.textContent = usuario.email
         tarjeta.hidden = false 
-        estado.textContent = "Busqueda Terminada"
+        estado.textContent = "Búsqueda Terminada"
         
     } catch(error) {
         console.error(error);
-        estado.textContent = `No se pudo cargar: ${error.message}`
+        if (error.status === 404) {
+        estado.textContent = "No existe un usuario con ese ID." 
+        } else if (error.status === undefined) {
+        estado.textContent = "No se pudo obtener una respuesta válida"
+        } else if (error.status >= 500 && error.status <= 599) {
+            estado.textContent = "El servidor tiene un problema temporal. Inténtalo más tarde"
+        } else {
+        estado.textContent = "No se pudo cargar el usuario."
+        }
+
     } finally{
         boton.disabled = false
         console.log("Proceso terminado")
     }
 
-},1500)
+
 })
