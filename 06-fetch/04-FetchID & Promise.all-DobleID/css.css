@@ -1,0 +1,11 @@
+#resultados {
+  display: flex;
+  gap: 1rem;
+}
+
+.tarjeta {
+  padding: 1rem;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+}
+
